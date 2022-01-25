@@ -40,10 +40,10 @@ class SizeFit {
   }
 
   static double setRpx(double size) {
-    return rpx * size;
+    return rpx == 0 ? 1 : rpx * size;
   }
 
   static double setPx(double size) {
-    return px * size;
+    return px == 0 ? 1 : px * size;
   }
 }
