@@ -3,14 +3,13 @@ import 'dart:io';
 
 import 'package:crypto/crypto.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
 import 'log_intercept.dart';
 
 class Http {
   static Http? _client;
 
-  static String get baseUrl => kDebugMode ? "http://api.story.dev.chenglie.tech/":"http://api-story.chenglie.tech/";
+  static late String baseUrl;
 
   factory Http() => _getInstance();
 
@@ -20,11 +19,24 @@ class Http {
     return _client ??= Http._internal();
   }
 
+  static late String _sourceId;
+  static late String _secret;
+
+  static init({
+    required String baseUrl,
+    required String sourceId,
+    required String secret,
+  }) {
+    Http.baseUrl = baseUrl;
+    _sourceId = sourceId;
+    _secret = secret;
+  }
+
   late Dio dio;
 
   Http._internal() {
     var millsSeconds = DateTime.now().millisecondsSinceEpoch ~/ 1000;
-    var sourceId = "1634036";
+    var sourceId = _sourceId;
     var platform = "unknown";
     try {
       platform = Platform.isAndroid ? "Android" : "iOS";
@@ -59,7 +71,7 @@ class Http {
   }
 
   String encrypt(int mills, String sourceId) {
-    String auth = "i1FTkkUT6mq0pzHh$mills$sourceId";
+    String auth = "$_secret$mills$sourceId";
     return md5.convert(utf8.encode(auth)).toString();
   }
 
