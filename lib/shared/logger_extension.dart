@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 
 // extension LoggerExtension on Logger {
@@ -13,5 +14,15 @@ extension DynamicLog<T> on T? {
 
   logD() {
     logger.d(this);
+  }
+
+  print() {
+    kPrint(this);
+  }
+}
+
+kPrint(Object? object) {
+  if (kDebugMode) {
+    print(object);
   }
 }
