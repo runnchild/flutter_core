@@ -23,3 +23,9 @@ extension IntFit on int? {
     return list;
   }
 }
+
+extension BoolExt on bool {
+
+  int get toInt => this ? 1 : 0;
+
+}
