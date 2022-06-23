@@ -22,7 +22,7 @@ extension DynamicLog<T> on T? {
 }
 
 kPrint(Object? object) {
-  if (kDebugMode) {
+  if (!kReleaseMode) {
     print(object);
   }
 }
