@@ -28,7 +28,7 @@ class LogIntercept extends Interceptor {
       print("│ Response_StatusCode:${response.statusCode}");
       print("│ Response_StatusMessage:${response.statusMessage}");
       // print("| Response_Headers:${response.headers.toString()}");
-      logger.d(response.data);
+      logger.d(String.fromCharCodes(Runes(response.data)));
       print("└────────────────────End Http Response────────────────────");
       return true;
     }());
