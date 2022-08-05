@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
-import 'dart:developer';
 
 // extension LoggerExtension on Logger {
 //   Logger get logger => Logger();
 // }
 
 var logger = Logger(
+  filter: ReleaseFilter(),
   printer: PrettyPrinter(
       methodCount: 2,
       // number of method calls to be displayed
@@ -36,8 +36,19 @@ extension DynamicLog<T> on T? {
   }
 }
 
-kPrint(Object? object, [Level level = Level.debug]) {
+kPrint(Object? object, {Level level = Level.debug, bool usePrint = false}) {
   if (!kReleaseMode) {
-    logger.log(level, "$object");
+    if (usePrint) {
+      print("$object");
+    } else {
+      logger.log(level, "$object");
+    }
+  }
+}
+
+class ReleaseFilter extends LogFilter {
+  @override
+  bool shouldLog(LogEvent event) {
+    return !kReleaseMode;
   }
 }

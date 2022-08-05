@@ -8,13 +8,13 @@ class LogIntercept extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     assert((){
-      kPrint("\n┌────────────────────Start Http Request────────────────────");
-      kPrint("Request_BaseUrl:${options.baseUrl}${options.path}");
-      kPrint("Request_Method:${options.method}");
-      kPrint("Request_Headers:${options.headers}");
-      kPrint("Request_Data:${options.data}");
-      kPrint("Request_QueryParameters:${options.queryParameters}");
-      kPrint("└────────────────────End Http Request────────────────────");
+      kPrint("\n┌────────────────────Start Http Request────────────────────", usePrint: true);
+      kPrint("Request_BaseUrl:${options.baseUrl}${options.path}", usePrint: true);
+      kPrint("Request_Method:${options.method}", usePrint: true);
+      kPrint("Request_Headers:${options.headers}", usePrint: true);
+      kPrint("Request_Data:${options.data}", usePrint: true);
+      kPrint("Request_QueryParameters:${options.queryParameters}", usePrint: true);
+      kPrint("└────────────────────End Http Request────────────────────", usePrint: true);
       return true;
     }());
 
@@ -25,14 +25,13 @@ class LogIntercept extends Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
     assert((){
-      kPrint("┌────────────────────Start Http Response────────────────────");
-      kPrint("│ Response_BaseUrl:${response.requestOptions.baseUrl}${response.requestOptions.path}");
-      kPrint("│ Response_StatusCode:${response.statusCode}");
-      kPrint("│ Response_StatusMessage:${response.statusMessage}");
-      // print("| Response_Headers:${response.headers.toString()}");
+      kPrint("┌────────────────────Start Http Response────────────────────", usePrint: true);
+      kPrint("│ Response_BaseUrl:${response.requestOptions.baseUrl}${response.requestOptions.path}", usePrint: true);
+      kPrint("│ Response_StatusCode:${response.statusCode}", usePrint: true);
+      kPrint("│ Response_StatusMessage:${response.statusMessage}", usePrint: true);
       var data = response.data;
       logger.d(String.fromCharCodes(Runes(data is String ? jsonDecode(data) : data)));
-      kPrint("└────────────────────End Http Response────────────────────");
+      kPrint("└────────────────────End Http Response────────────────────", usePrint: true);
       return true;
     }());
   }
