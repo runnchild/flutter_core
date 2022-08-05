@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 import '../shared/logger_extension.dart';
@@ -28,7 +30,8 @@ class LogIntercept extends Interceptor {
       kPrint("│ Response_StatusCode:${response.statusCode}");
       kPrint("│ Response_StatusMessage:${response.statusMessage}");
       // print("| Response_Headers:${response.headers.toString()}");
-      logger.d(String.fromCharCodes(Runes(response.data)));
+      var data = response.data;
+      logger.d(String.fromCharCodes(Runes(data is String ? jsonDecode(data) : data)));
       kPrint("└────────────────────End Http Response────────────────────");
       return true;
     }());
