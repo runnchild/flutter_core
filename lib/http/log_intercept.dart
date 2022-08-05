@@ -30,7 +30,7 @@ class LogIntercept extends Interceptor {
       kPrint("│ Response_StatusCode:${response.statusCode}", usePrint: true);
       kPrint("│ Response_StatusMessage:${response.statusMessage}", usePrint: true);
       var data = response.data;
-      logger.d(String.fromCharCodes(Runes(data is String ? jsonDecode(data) : data)));
+      logger.d(data is String ? jsonDecode(data) : data);
       kPrint("└────────────────────End Http Response────────────────────", usePrint: true);
       return true;
     }());
