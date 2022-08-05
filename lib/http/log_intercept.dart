@@ -6,13 +6,13 @@ class LogIntercept extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     assert((){
-      print("\n┌────────────────────Start Http Request────────────────────");
-      print("Request_BaseUrl:${options.baseUrl}${options.path}");
-      print("Request_Method:${options.method}");
-      print("Request_Headers:${options.headers}");
-      print("Request_Data:${options.data}");
-      print("Request_QueryParameters:${options.queryParameters}");
-      print("└────────────────────End Http Request────────────────────");
+      kPrint("\n┌────────────────────Start Http Request────────────────────");
+      kPrint("Request_BaseUrl:${options.baseUrl}${options.path}");
+      kPrint("Request_Method:${options.method}");
+      kPrint("Request_Headers:${options.headers}");
+      kPrint("Request_Data:${options.data}");
+      kPrint("Request_QueryParameters:${options.queryParameters}");
+      kPrint("└────────────────────End Http Request────────────────────");
       return true;
     }());
 
@@ -23,13 +23,13 @@ class LogIntercept extends Interceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
     assert((){
-      print("┌────────────────────Start Http Response────────────────────");
-      print("│ Response_BaseUrl:${response.requestOptions.baseUrl}${response.requestOptions.path}");
-      print("│ Response_StatusCode:${response.statusCode}");
-      print("│ Response_StatusMessage:${response.statusMessage}");
+      kPrint("┌────────────────────Start Http Response────────────────────");
+      kPrint("│ Response_BaseUrl:${response.requestOptions.baseUrl}${response.requestOptions.path}");
+      kPrint("│ Response_StatusCode:${response.statusCode}");
+      kPrint("│ Response_StatusMessage:${response.statusMessage}");
       // print("| Response_Headers:${response.headers.toString()}");
       logger.d(String.fromCharCodes(Runes(response.data)));
-      print("└────────────────────End Http Response────────────────────");
+      kPrint("└────────────────────End Http Response────────────────────");
       return true;
     }());
   }
