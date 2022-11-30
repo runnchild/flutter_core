@@ -7,7 +7,7 @@ extension DoubleFit on double {
 }
 
 extension StringExtension on String? {
-  double toDouble() => double.parse(this??"0");
-  int toInt() => int.parse(this??"0");
+  double toDouble([int def = 0]) => double.parse(this??"$def");
+  int toInt([int def = 0]) => int.parse(this??"$def");
   bool isNullOrEmpty() => this == null || this!.isEmpty;
 }
