@@ -24,8 +24,8 @@ extension IntFit on int? {
   }
 }
 
-extension BoolExt on bool {
+extension BoolExt on bool? {
 
-  int get toInt => this ? 1 : 0;
+  int get toInt => this==true ? 1 : 0;
 
 }

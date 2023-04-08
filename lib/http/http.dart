@@ -46,8 +46,8 @@ class Http {
 
     dio = Dio(BaseOptions(
         baseUrl: baseUrl,
-        connectTimeout: 10000,
-        receiveTimeout: 1000 * 60 * 60 * 24,
+        connectTimeout: const Duration(seconds: 10000),
+        receiveTimeout: const Duration(seconds: 1000 * 60 * 60 * 24),
         responseType: ResponseType.json,
         headers: {
           "Content-Type": "application/json",
