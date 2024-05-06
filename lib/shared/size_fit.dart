@@ -1,5 +1,7 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
+
 class SizeFit {
   static double physicalWidth = 0;
   static double physicalHeight = 0;
@@ -12,27 +14,28 @@ class SizeFit {
   static double px = 0;
   static double ratio = 0;
 
-  static void initialize({double standardSize = 750}) {
-    physicalWidth = window.physicalSize.width;
-    physicalHeight = window.physicalSize.height;
+  static void initialize({BuildContext? context, double standardSize = 750}) {
+    FlutterView display;
+    if (context == null) {
+      display = window;
+    } else {
+      display = View.of(context);
+    }
+    physicalWidth = display.physicalSize.width;
+    physicalHeight = display.physicalSize.height;
 
-    dpr = window.devicePixelRatio;
+    dpr = display.devicePixelRatio;
 
     screenWidth = physicalWidth / dpr;
     screenHeight = physicalHeight / dpr;
 
-    statusHeight = window.padding.top / dpr;
+    statusHeight = display.padding.top / dpr;
 
     ratio = screenWidth / screenHeight;
 
-    if (isLongScreen()) {
-      standardSize = 750;
-    } else {
-      standardSize = 900;
-    }
     rpx = screenWidth / standardSize;
     px = screenWidth / standardSize * 2;
-    print("SizeFit.initialize(); rpx:$rpx, px:$px, ratio=$ratio");
+    debugPrint("SizeFit.initialize(); rpx:$rpx, px:$px, ratio=$ratio");
   }
 
   static isLongScreen() {
