@@ -11,3 +11,4 @@ export 'shared/single_line_fitted_box.dart';
 export 'shared/size_fit.dart';
 export 'shared/throttle_event.dart';
 export 'shared/view_click.dart';
+export 'shared/view_kt.dart';
