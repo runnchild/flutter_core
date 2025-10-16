@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_core/flutter_core.dart';
 
 class ExpandableText extends StatefulWidget {
   final String text;
@@ -33,12 +32,13 @@ class _ExpandableTextState extends State<ExpandableText> {
         textPainter.layout(maxWidth: size.maxWidth);
 
         if (textPainter.didExceedMaxLines) {
-          return _isExpanded.builder(
-            (e, child) => RichText(
+          return ValueListenableBuilder<bool>(
+            valueListenable: _isExpanded,
+            builder: (context, isExpanded, child) => RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: _isExpanded.value
+                    text: isExpanded
                         ? text
                         : _getTruncatedTextWithEllipsis(text, size.maxWidth),
                     style: widget.textStyle,
@@ -50,7 +50,7 @@ class _ExpandableTextState extends State<ExpandableText> {
                         _isExpanded.value = !_isExpanded.value;
                       },
                       child: Text(
-                        _isExpanded.value ? " 收起" : "展开",
+                        isExpanded ? " 收起" : "展开",
                         style: widget.expandedTextStyle,
                       ),
                     ),
