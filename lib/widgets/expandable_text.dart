@@ -4,8 +4,9 @@ class ExpandableText extends StatefulWidget {
   final String text;
   final TextStyle? textStyle;
   final TextStyle? expandedTextStyle;
+  final int maxLines;
 
-  const ExpandableText({super.key, required this.text, this.textStyle, this.expandedTextStyle});
+  const ExpandableText({super.key, required this.text, this.textStyle, this.expandedTextStyle, this.maxLines = 3});
 
   @override
   State<ExpandableText> createState() => _ExpandableTextState();
@@ -27,7 +28,7 @@ class _ExpandableTextState extends State<ExpandableText> {
         final TextPainter textPainter = TextPainter(
           text: textSpan,
           textDirection: TextDirection.ltr,
-          maxLines: 3,
+          maxLines: widget.maxLines,
         );
         textPainter.layout(maxWidth: size.maxWidth);
 
