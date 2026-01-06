@@ -79,7 +79,7 @@ class _ExpandableTextState extends State<ExpandableText> {
     final TextPainter textPainter = TextPainter(
       text: textSpan,
       textDirection: TextDirection.ltr,
-      maxLines: 3,
+      maxLines: widget.maxLines,
     );
     textPainter.layout(maxWidth: availableWidth);
 
