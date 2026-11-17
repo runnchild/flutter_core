@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
+import 'package:flutter/widgets.dart';
 
 Map<String, Timer> _funcDebounce = {};
 
@@ -81,4 +82,36 @@ VoidCallback? throttleAsync(Future Function()? func)  {
       enable = true;
     }
   };
+}
+
+/// 防止异步操作重复点击的 Mixin，实例级别，不会与其他页面互相干扰
+///
+/// 用法：
+///   class _MyPageState extends State<MyPage> with SubmitGuardMixin<MyPage> {
+///     // 在 CommonButton.enabled 中使用
+///     enabled: !isSubmitting && ...,
+///     // 在 onTap 中使用
+///     onTap: submitGuard(() async { ... }),
+///   }
+mixin SubmitGuardMixin<T extends StatefulWidget> on State<T> {
+  bool _isSubmitting = false;
+
+  /// 当前是否正在提交中
+  bool get isSubmitting => _isSubmitting;
+
+  /// 包装一个异步函数，防止重复调用
+  /// 自动管理 [_isSubmitting] 状态并刷新 UI
+  VoidCallback submitGuard(Future Function() func) {
+    return () async {
+      if (_isSubmitting) return;
+      _isSubmitting = true;
+      setState(() {});
+      try {
+        await func();
+      } finally {
+        _isSubmitting = false;
+        if (mounted) setState(() {});
+      }
+    };
+  }
 }
